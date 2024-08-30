@@ -1,9 +1,37 @@
-import React from "react";
+import React from 'react'
+import { Container } from './container'
+import Image from 'next/image'
+import SearchInput from './search-input'
+import { Button } from '../ui/button'
+import { ShoppingCart } from 'lucide-react'
 
-const header = () => {
-  return <header>
-    
-  </header>;
-};
+const Header = () => {
+	return (
+		<header className='border-b border-gray-200'>
+			<Container className='flex justify-between items-center py-8'>
+				<div className='flex items-center gap-2'>
+					<Image src='/pizza-icon.png' alt='Logo' width={50} height={50} />
+					<div className=''>
+						<h1 className='font-extrabold text-2xl uppercase'>Luvtorn Pizza</h1>
+						<h3 className='text-gray-400 leading-3'>
+							it couldn&#39;t be tastier
+						</h3>
+					</div>
+				</div>
 
-export default header;
+				<div className='mx-10 flex-1'>
+					<SearchInput />
+				</div>
+
+				<div className='flex items-center gap-4'>
+					<Button variant={'outline'}>Log in</Button>
+					<Button variant={'outline'}>
+						<ShoppingCart />
+					</Button>
+				</div>
+			</Container>
+		</header>
+	)
+}
+
+export default Header
