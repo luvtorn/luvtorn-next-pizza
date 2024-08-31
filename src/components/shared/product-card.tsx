@@ -40,7 +40,7 @@ export const ProductCard: React.FC<Props> = ({
         </span>
 
         {count ? (
-          <CountButton value={count} size="lg" />
+          <CountButton value={count} size="lg" setValue={setCount} />
         ) : (
           <Button variant="secondary" onClick={() => setCount(count + 1)}>
             <Plus className="w-4 h-4 mr-1" />

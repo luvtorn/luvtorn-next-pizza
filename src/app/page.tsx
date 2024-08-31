@@ -2,8 +2,9 @@ import Categories from "@/components/shared/categories";
 import { Container } from "@/components/shared/container";
 import Filtration from "@/components/shared/filtration";
 import Header from "@/components/shared/header";
+import Pagination from "@/components/shared/pagination";
 import { ProductsGroupList } from "@/components/shared/product-group-list";
-import { ProductSkeleton } from "@/components/shared/product-skeleton";
+
 import { SortPopup } from "@/components/shared/sort-popup";
 import { Title } from "@/components/shared/title";
 
@@ -28,12 +29,21 @@ export default function Home() {
           <div className="w-[250px]">
             <Filtration />
           </div>
-          <div className="flex-1">
+          <div className="flex flex-1 flex-col gap-20">
             <ProductsGroupList
+              categoryId={1}
               title="Pizzas"
-              items={[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]}
+              items={[1, 2, 3, 4, 5, 6]}
+            />
+            <ProductsGroupList
+              categoryId={2}
+              title="Kombos"
+              items={[1, 2, 3, 4, 5, 6]}
             />
           </div>
+        </div>
+        <div className="flex items-center justify-center mt-16 mb-5">
+          <Pagination pageCount={10} />
         </div>
       </Container>
     </>

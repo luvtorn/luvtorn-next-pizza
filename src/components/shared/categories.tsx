@@ -1,23 +1,35 @@
 "use client";
 
 import { cn } from "@/lib/utils";
-import Link from "next/link";
-import React, { useState } from "react";
+import { setActiveCategory } from "@/redux/categorySlice";
 
-const cats = ["All", "Meat", "Spicy", "Sweet", "Vegetarian", "With Chicken"];
+import Link from "next/link";
+import React from "react";
+import { RootState } from "@/redux/store";
+import { useDispatch, useSelector } from "react-redux";
+
+const cats = ["Pizzas", "Kombos", "Sweet", "Vegetarian", "With Chicken"];
 
 const Categories = () => {
-  const [activeIndex, setActiveIndex] = useState(0);
+  const dispatch = useDispatch();
+  const activeCategory = useSelector(
+    (state: RootState) => state.category.activeCategory
+  );
+
+  const handleClick = (cat: string) => {
+    dispatch(setActiveCategory(cat));
+  };
+
   return (
     <div className="inline-flex items-center bg-gray-50 rounded-2xl p-1 gap-2">
-      {cats.map((cat, i) => (
+      {cats.map((cat) => (
         <Link
           key={cat}
-          href={""}
-          onClick={() => setActiveIndex(i)}
+          href={`/#${cat.toLowerCase()}`}
+          onClick={() => handleClick(cat)}
           className={cn(
             "flex items-center font-bold h-11 rounded-xl px-3",
-            activeIndex === i &&
+            activeCategory === cat &&
               "bg-white shadow-md shadow-gray-200 text-primary"
           )}
         >

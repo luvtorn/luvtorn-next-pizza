@@ -7,11 +7,13 @@ interface Props {
   value?: number;
   size?: "sm" | "lg";
   className?: string;
+  setValue?: (value: number) => void;
 }
 
 export const CountButton: React.FC<Props> = ({
   className,
   value = 1,
+  setValue,
   size = "sm",
 }) => {
   return (
@@ -29,6 +31,7 @@ export const CountButton: React.FC<Props> = ({
             ? "w-[30px] h-[30px] rounded-sm"
             : "w-[38px] h-[38px] rounded-se-md"
         )}
+        onClick={() => setValue && setValue(value - 1)}
       >
         <Minus className={size === "sm" ? "h-4" : "h-5"} />
       </Button>
@@ -41,6 +44,7 @@ export const CountButton: React.FC<Props> = ({
             ? "w-[30px] h-[30px] rounded-sm"
             : "w-[38px] h-[38px] rounded-md"
         )}
+        onClick={() => setValue && setValue(value + 1)}
       >
         <Plus className={size === "sm" ? "h-4" : "h-5"} />
       </Button>

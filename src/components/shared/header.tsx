@@ -1,11 +1,16 @@
-import React from "react";
+"use client";
+
+import React, { useState } from "react";
 import { Container } from "./container";
 import Image from "next/image";
 import SearchInput from "./search-input";
 import { Button } from "../ui/button";
 import { ShoppingCart, UserRound } from "lucide-react";
+import { ProfilePopup } from "./profile-popover";
 
 const Header = () => {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
   return (
     <header className="border-b border-gray-200">
       <Container className="flex justify-between items-center py-8">
@@ -24,13 +29,18 @@ const Header = () => {
         </div>
 
         <div className="flex items-center gap-4">
-          <Button
-            variant={"outline"}
-            className="flex items-center justify-center gap-1"
-          >
-            <UserRound size={20} />
-            Log in
-          </Button>
+          {isLoggedIn ? (
+            <ProfilePopup setIsLoggedIn={setIsLoggedIn} />
+          ) : (
+            <Button
+              variant={"outline"}
+              className="flex items-center justify-center gap-1"
+              onClick={() => setIsLoggedIn(true)}
+            >
+              <UserRound size={20} />
+              Log in
+            </Button>
+          )}
           <Button variant={"outline"}>
             <ShoppingCart />
           </Button>
