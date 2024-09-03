@@ -4,9 +4,10 @@ import React, { useEffect, useRef } from "react";
 import { Title } from "./title";
 import { ProductCard } from "./product-card";
 import { useIntersection } from "react-use";
-import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "@/redux/store";
+import { useDispatch } from "react-redux";
 import { setActiveCategory } from "@/redux/categorySlice";
+import { Product } from "@prisma/client";
+import { Api } from "@/services/api-client";
 
 interface Props {
   title: string;
@@ -21,6 +22,8 @@ export const ProductsGroupList: React.FC<Props> = ({
   categoryId,
   className,
 }) => {
+  const [pizzas, setPizzas] = React.useState<Product[]>([]);
+
   const intersectionRef = useRef(null);
   const intersection = useIntersection(intersectionRef, { threshold: 0.4 });
 
@@ -32,15 +35,21 @@ export const ProductsGroupList: React.FC<Props> = ({
     }
   }, [intersection?.isIntersecting, categoryId, title]);
 
+  useEffect(() => {
+    Api.getPizzas().then((res) => {
+      setPizzas(res);
+    });
+  }, []);
+
   return (
     <div className={className} id={title.toLowerCase()} ref={intersectionRef}>
       <Title text={title} size="lg" className="font-extrabold mb-5" />
       <div className="grid grid-cols-3 gap-[50px]">
-        {items.map((item, i) => (
+        {pizzas.map((item) => (
           <ProductCard
-            key={item}
-            name="Маргарита"
-            imageUrl="https://media.dodostatic.net/image/r:292x292/11EE7D610BBEB562BD4D48786AD87270.webp"
+            key={item.id}
+            name={item.name}
+            imageUrl={item.imageUrl}
             price={390}
           />
         ))}
