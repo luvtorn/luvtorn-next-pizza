@@ -11,8 +11,6 @@ import { Title } from "@/components/shared/title";
 export default function Home() {
   return (
     <>
-      <Header />
-
       <Container className="mt-10">
         <Title text="All pizzas" size="lg" className="font-extrabold" />
       </Container>
@@ -37,7 +35,7 @@ export default function Home() {
             />
             <ProductsGroupList
               categoryId={2}
-              title="Kombos"
+              title="Breakfast"
               items={[1, 2, 3, 4, 5, 6]}
             />
           </div>

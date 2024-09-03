@@ -8,7 +8,7 @@ import React from "react";
 import { RootState } from "@/redux/store";
 import { useDispatch, useSelector } from "react-redux";
 
-const cats = ["Pizzas", "Kombos", "Sweet", "Vegetarian", "With Chicken"];
+const cats = ["Pizzas", "Breakfast", "Snacks", "Cocktails", "Drinks"];
 
 const Categories = () => {
   const dispatch = useDispatch();
