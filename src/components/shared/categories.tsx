@@ -22,9 +22,9 @@ const Categories = () => {
 
   return (
     <div className="inline-flex items-center bg-gray-50 rounded-2xl p-1 gap-2">
-      {cats.map((cat) => (
+      {cats.map((cat, index) => (
         <Link
-          key={cat}
+          key={index}
           href={`/#${cat.toLowerCase()}`}
           onClick={() => handleClick(cat)}
           className={cn(

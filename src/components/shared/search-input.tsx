@@ -65,6 +65,7 @@ const SearchInput = () => {
             {products.map((product) => (
               <Link
                 onClick={itemClick}
+                key={product.id}
                 href={`/product/${product.id}`}
                 className="w-full px-3 py-2 hover:bg-primary/10 flex items-center gap-3"
               >
