@@ -17,11 +17,22 @@ const CheckboxFiltersGroup: React.FC<Props> = ({ className }) => {
   const [search, setSearch] = useState("");
   const [items, setItems] = useState<Ingredient[]>([]);
 
-  useEffect(() => {
-    Api.getIngredients().then((res) => {
-      setItems(res);
-    });
-  }, []);
+  // useEffect(() => {
+  //   Api.getIngredients().then((res) => {
+  //     setItems(res);
+  //   });
+  // }, []);
+
+  setItems([
+    {
+      id: 1,
+      name: "test",
+      price: 123,
+      imageUrl: "image",
+      createdAt: new Date("2023-12-07"),
+      updatedAt: new Date("2023-12-07"),
+    },
+  ]);
 
   return (
     <div className={clsx("mt-7", className)}>
