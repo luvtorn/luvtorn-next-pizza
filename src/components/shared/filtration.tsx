@@ -1,12 +1,16 @@
+'use client';
+
 import React from "react";
 import { Title } from "./title";
 import { FilterCheckbox } from "./filter-checkbox";
 import { Input } from "../ui/input";
-import { RangeSlider } from "../ui/range-slider";
 import CheckboxFiltersGroup from "./checkbox-filters-group";
 import { Button } from "../ui/button";
+import { useIngredients } from "@/hooks";
 
 const Filtration = () => {
+  const { ingredients, loading } = useIngredients();
+
   return (
     <div>
       <Title text="Filtration" size="sm" className="font-bold mb-7" />
@@ -30,7 +34,11 @@ const Filtration = () => {
         </div>
       </div>
 
-      <CheckboxFiltersGroup className="mt-7" />
+      <CheckboxFiltersGroup
+        className="mt-7"
+        items={ingredients}
+        loading={loading}
+      />
 
       <div className="mt-7">
         <p className="font-bold mb-3">Type of dough</p>

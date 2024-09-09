@@ -5,23 +5,33 @@ import React, { useEffect, useState } from "react";
 import { Input } from "../ui/input";
 import { FilterCheckbox } from "./filter-checkbox";
 import { Button } from "../ui/button";
-import { Api } from "@/services/api-client";
 import { Ingredient } from "@prisma/client";
+import { Skeleton } from "../ui/skeleton";
 
 interface Props {
   className?: string;
+  items: Ingredient[];
+  loading?: boolean;
 }
 
-const CheckboxFiltersGroup: React.FC<Props> = ({ className }) => {
+const CheckboxFiltersGroup: React.FC<Props> = ({
+  className,
+  items,
+  loading,
+}) => {
   const [showAll, setShowAll] = useState(false);
   const [search, setSearch] = useState("");
-  const [items, setItems] = useState<Ingredient[]>([]);
 
-  useEffect(() => {
-    Api.getIngredients().then((res) => {
-      setItems(res);
-    });
-  }, []);
+  if (loading) {
+    return (
+      <div>
+        <p className="font-bold text-lg mb-3">Ingredients</p>
+        {...Array(5)
+          .fill(0)
+          .map((_, i) => <Skeleton key={i} className="h-6 mb-4 rounded-md" />)}
+      </div>
+    );
+  }
 
   return (
     <div className={clsx("mt-7", className)}>
@@ -43,7 +53,12 @@ const CheckboxFiltersGroup: React.FC<Props> = ({ className }) => {
             item.name.toLowerCase().includes(search.toLowerCase())
           )
           .map((item) => (
-            <FilterCheckbox text={item.name} value={item.name} key={item.id} />
+            <FilterCheckbox
+              text={item.name}
+              value={item.name}
+              key={item.id}
+              onCheckedChange={() => console.log(item.id)}
+            />
           ))}
       </div>
 

@@ -1,14 +1,16 @@
+"use client";
+
 import Categories from "@/components/shared/categories";
 import { Container } from "@/components/shared/container";
 import Filtration from "@/components/shared/filtration";
-import Header from "@/components/shared/header";
-import Pagination from "@/components/shared/pagination";
 import { ProductsGroupList } from "@/components/shared/product-group-list";
-
 import { SortPopup } from "@/components/shared/sort-popup";
 import { Title } from "@/components/shared/title";
+import { usePizzas } from "@/hooks";
 
 export default function Home() {
+  const { loading, pizzas, breakfast, cocktails, drinks, snacks } = usePizzas();
+
   return (
     <>
       <Container className="mt-10">
@@ -22,7 +24,7 @@ export default function Home() {
         </Container>
       </div>
 
-      <Container className="mt-10">
+      <Container className="mt-10 mb-10">
         <div className="flex gap-[60px]">
           <div className="w-[250px]">
             <Filtration />
@@ -31,17 +33,34 @@ export default function Home() {
             <ProductsGroupList
               categoryId={1}
               title="Pizzas"
-              items={[1, 2, 3, 4, 5, 6]}
+              items={pizzas}
+              loading={loading}
             />
             <ProductsGroupList
               categoryId={2}
               title="Breakfast"
-              items={[1, 2, 3, 4, 5, 6]}
+              items={breakfast}
+              loading={loading}
+            />
+            <ProductsGroupList
+              categoryId={2}
+              title="Cocktails"
+              items={cocktails}
+              loading={loading}
+            />
+            <ProductsGroupList
+              categoryId={2}
+              title="Snacks"
+              items={snacks}
+              loading={loading}
+            />
+            <ProductsGroupList
+              categoryId={2}
+              title="Drinks"
+              items={drinks}
+              loading={loading}
             />
           </div>
-        </div>
-        <div className="flex items-center justify-center mt-16 mb-5">
-          <Pagination pageCount={10} />
         </div>
       </Container>
     </>

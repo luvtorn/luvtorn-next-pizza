@@ -2,8 +2,6 @@ import type { Metadata } from "next";
 import { Nunito } from "next/font/google";
 import "./globals.css";
 import ClientLayout from "./ClientLayout";
-import { Suspense } from "react";
-import Header from "@/components/shared/header";
 
 const nunito = Nunito({
   subsets: ["latin"],
@@ -25,9 +23,6 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={nunito.className}>
-        <Suspense>
-          <Header />
-        </Suspense>
         <ClientLayout>{children}</ClientLayout>
       </body>
     </html>

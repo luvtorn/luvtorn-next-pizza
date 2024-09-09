@@ -185,9 +185,9 @@ export const products = [
     categoryId: 4,
   },
   {
-    name: "Irish Cappuccino",
+    name: "Nut Latte",
     imageUrl:
-      "https://media.dodostatic.net/image/r:292x292/11EE7D61999EBDA59C10E216430A6093.webp",
+      "https://media.dodostatic.net/image/r:292x292/11EE7D61B12220AB911FF4FA42EF585D.avif",
     categoryId: 5,
   },
   {
