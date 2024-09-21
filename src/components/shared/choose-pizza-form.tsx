@@ -2,7 +2,7 @@ import { Ingredient, Product, ProductItem } from "@prisma/client";
 import React from "react";
 import IngredientItem from "./ingredient-item";
 
-import { PizzaImage } from "./pizza-iamge";
+import { PizzaImage } from "./pizza-image";
 
 import { GroupVariants } from "./group-variants";
 import { pizzaSizes, pizzaTypes } from "@/constants/pizza";
@@ -32,19 +32,20 @@ const ChoosePizzaForm: React.FC<Props> = ({ ingredients, product }) => {
   };
 
   return (
-    <div className="flex flex-1 bg-[#F4F1EE]">
+    <div className="flex flex-1 bg-[#F4F1EE] w-[]">
       <PizzaImage imageUrl={product.imageUrl} size={selectedSize} />
 
-      <div className="flex flex-col bg-[#f7f6f5] w-[40%] p-5">
+      <div className="flex flex-col bg-[#f7f6f5] w-1/2 p-5">
         <p className="text-2xl font-bold pb-2">{product.name}</p>
         <p className="text-sm">{detailsText}</p>
 
-        <div className="flex flex-col gap-3 mt-4">
+        <div className="flex flex-col gap-3 mt-4 max-w-full">
           <GroupVariants
             items={pizzaSizes}
             onClick={setSelectedSize}
             value={selectedSize}
           />
+
           <GroupVariants
             items={pizzaTypes}
             onClick={setSelectedType}
@@ -54,7 +55,7 @@ const ChoosePizzaForm: React.FC<Props> = ({ ingredients, product }) => {
 
         <div className="mt-5">
           <p className="w-full text-xl font-bold mb-3">Also you can add</p>
-          <div className="flex flex-row gap-2 items-center justify-center">
+          <div className="grid grid-cols-3 gap-2 overflow-auto pr-2 scrollbar-custom h-[300px]">
             {ingredients?.map((ingredient) => (
               <IngredientItem
                 key={ingredient.id}
@@ -73,7 +74,7 @@ const ChoosePizzaForm: React.FC<Props> = ({ ingredients, product }) => {
             selectedSize,
             selectedIngredients,
             ingredients
-          )}{" "}
+          )}
           PLN
         </Button>
       </div>

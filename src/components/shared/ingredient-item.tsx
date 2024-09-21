@@ -15,7 +15,7 @@ const IngredientItem: React.FC<Props> = ({ ingredient, isChoosen, onClick }) => 
   return (
     <div
       className={cn(
-        "flex flex-col h-[220px] bg-white w-[150px] p-5 justify-center items-center rounded-lg border-[3px] border-transparent",
+        "flex flex-col h-[220px] flex-shrink bg-white p-5 justify-center items-center rounded-lg border-[3px] border-transparent",
         {
           " border-primary": isChoosen,
         }
