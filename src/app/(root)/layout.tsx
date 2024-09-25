@@ -1,17 +1,17 @@
-import Header from "@/components/shared/header";
+import Header from '@/components/shared/header'
 
 export default function HomeLayout({
-  children,
-  modal,
+	children,
+	modal,
 }: Readonly<{
-  children: React.ReactNode;
-  modal: React.ReactNode;
+	children: React.ReactNode
+	modal: React.ReactNode
 }>) {
-  return (
-    <main className="min-h-screen">
-      {modal}
-      <Header />
-      {children}
-    </main>
-  );
+	return (
+		<main className='min-h-screen'>
+			{modal}
+			<Header />
+			{children}
+		</main>
+	)
 }

@@ -1,57 +1,73 @@
-'use client';
+'use client'
 
-import React from "react";
-import { Title } from "./title";
-import { FilterCheckbox } from "./filter-checkbox";
-import { Input } from "../ui/input";
-import CheckboxFiltersGroup from "./checkbox-filters-group";
-import { Button } from "../ui/button";
-import { useIngredients } from "@/hooks";
+import { useIngredients } from '@/hooks'
+import { useFilteredProducts } from '@/hooks/useProducts'
+import { ProductFilters } from '@/types/product.types'
+import { useState } from 'react'
+import { Button } from '../ui/button'
+import { Input } from '../ui/input'
+import CheckboxFiltersGroup from './checkbox-filters-group'
+import { Title } from './title'
 
 const Filtration = () => {
-  const { ingredients, loading } = useIngredients();
+	const { ingredients, loading } = useIngredients()
 
-  return (
-    <div>
-      <Title text="Filtration" size="sm" className="font-bold mb-7" />
+	const [selectedFilters, setSelectedFilters] = useState<ProductFilters>({
+		priceFrom: 0,
+		priceTo: 1000,
+		selectedIngredients: [],
+	})
 
-      <div className="flex flex-col gap-4">
-        <FilterCheckbox text="New products" value="1" />
-        <FilterCheckbox text="New products" value="2" />
-      </div>
+	const { refetch } = useFilteredProducts(selectedFilters)
 
-      <div className="mt-5 border-y border-y-neutral-100 py-6 pb-7 z-0">
-        <p className="font-bold mb-3">Price from to: </p>
-        <div className="flex gap-3">
-          <Input
-            type="number"
-            placeholder="0"
-            min={0}
-            max={30000}
-            defaultValue={0}
-          />
-          <Input type="number" min={10} max={1000} placeholder="1000" />
-        </div>
-      </div>
+	return (
+		<div>
+			<Title text='Filtration' size='sm' className='font-bold' />
 
-      <CheckboxFiltersGroup
-        className="mt-7"
-        items={ingredients}
-        loading={loading}
-      />
+			<div className='mt-5 border-y border-y-neutral-100 py-6 pb-7 z-0'>
+				<p className='font-bold mb-3'>Price from to: </p>
+				<div className='flex gap-3'>
+					<Input
+						type='number'
+						placeholder='0'
+						min={0}
+						max={1000}
+						defaultValue={0}
+						onChange={e =>
+							setSelectedFilters(prev => ({
+								...prev,
+								priceFrom: Number(e.target.value),
+							}))
+						}
+					/>
+					<Input
+						type='number'
+						min={0}
+						max={1000}
+						placeholder='1000'
+						onChange={e =>
+							setSelectedFilters(prev => ({
+								...prev,
+								priceTo: Number(e.target.value),
+							}))
+						}
+					/>
+				</div>
+			</div>
 
-      <div className="mt-7">
-        <p className="font-bold mb-3">Type of dough</p>
+			<CheckboxFiltersGroup
+				className='mt-7'
+				items={ingredients}
+				loading={loading}
+				setIngredients={setSelectedFilters}
+				ingredients={selectedFilters.selectedIngredients}
+			/>
 
-        <div className="flex flex-col gap-3">
-          <FilterCheckbox text="Traditional" value="1" />
-          <FilterCheckbox text="Thin" value="2" />
-        </div>
-      </div>
+			<Button className='text-base w-full mt-8' onClick={() => refetch()}>
+				Apply
+			</Button>
+		</div>
+	)
+}
 
-      <Button className="w-full mt-8 text-base">Apply</Button>
-    </div>
-  );
-};
-
-export default Filtration;
+export default Filtration
